@@ -6,22 +6,20 @@
 
 const express = require("express");
 const app = express();
-const fs = require("node:fs/promises");
-const PORT = 3000;
+const fs = require("fs");
+const PORT = 4000;
 
-app.use(express.json);
+app.use(express.json());
 
-app.get("/", async (req, res) => {
+app.get("/characters", async (req, res) => {
   fs.readFile("user.json", "utf-8", (err, data) => {
     if (err) {
       res.status(500).json({ message: "Error reading file!" });
-      console.log("AYoo")
       return;
     } else {
       try {
         const characterData = JSON.parse(data);
         res.json(characterData);
-        console.log(characterData)
       } catch (error) {
         console.error(error);
       }

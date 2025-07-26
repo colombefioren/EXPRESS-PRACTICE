@@ -18,6 +18,7 @@ app.get("/characters", async (req, res) => {
       return;
     } else {
       try {
+        console.log(data);
         const characterData = JSON.parse(data);
         res.json(characterData);
       } catch (error) {
@@ -25,6 +26,17 @@ app.get("/characters", async (req, res) => {
       }
     }
   });
+});
+
+app.post("/characters", async (req, res) => {
+  try {
+    const data = await req.body;
+    const newCharacter = JSON.parse(data);
+    console.log(newCharacter);
+    res.json(newCharacter);
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 app.listen(PORT, () => console.log(`Server running on the PORT ${PORT}`));

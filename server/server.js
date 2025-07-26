@@ -20,7 +20,8 @@ app.get("/characters", async (req, res) => {
       const characterData = JSON.parse(data);
       res.json(characterData);
     } catch (ParsingError) {
-      console.error(error);
+      console.error(ParsingError);
+      res.status(500).json({ message: "Failed to parse data." });
     }
   });
 });
@@ -51,11 +52,35 @@ app.post("/characters", async (req, res) => {
       );
     } catch (ParsingError) {
       console.error(ParsingError);
+      res.status(500).json({ message: "Failed to parse data." });
     }
   });
 });
 
 // GET /characters/:id ==> Get a character by ID
 
+app.get("/characters/:id", async (req, res) => {
+  fs.readFile("user.json", "utf-8", (err, data) => {
+    if (err) {
+      res.status(500).json({ message: "Error reading file !" });
+      return;
+    }
+    try {
+      const wantedCharacterId = +req.params.id;
+      const characterData = JSON.parse(data);
+      const wantedCharacterData = characterData.characters.filter(
+        (character) => character.id === wantedCharacterId
+      );
+      if (wantedCharacterData.length === 0) {
+        res.status(200).json({ message: "That character does not exist!" });
+      } else {
+        res.status(200).json(wantedCharacterData[0]);
+      }
+    } catch (ParsingError) {
+      console.error(ParsingError);
+      res.status(500).json({ message: "Failed to parse data." });
+    }
+  });
+});
 
 app.listen(PORT, () => console.log(`Server running on the PORT ${PORT}`));

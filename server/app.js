@@ -1,8 +1,11 @@
-const express = require("express");
+import express from "express";
+import charactersRouter from "./routes/characters.routes.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+
 const app = express();
-const charactersRouter = require("./routes/characters.routes");
 
 app.use(express.json());
 app.use("/characters", charactersRouter);
+app.use(errorHandler);
 
-module.exports = app;
+export default app;

@@ -1,11 +1,18 @@
-const express = require("express");
-const router = express.Router();
-const charactersController = require("../controllers/characters.controller");
+import { Router } from "express";
+import {
+  getAllCharacters,
+  getCharacterById,
+  createCharacter,
+  updateCharacter,
+  deleteCharacter,
+} from "../controllers/characters.controller.js";
 
-router.get("/", charactersController.getAllCharacters);
-router.get("/:id", charactersController.getCharacterById);
-router.post("/", charactersController.createCharacter);
-router.put("/:id", charactersController.updateCharacter);
-router.delete("/:id", charactersController.deleteCharacter);
+const router = Router();
 
-module.exports = router;
+router.get("/", getAllCharacters);
+router.get("/:id", getCharacterById);
+router.post("/", createCharacter);
+router.put("/:id", updateCharacter);
+router.delete("/:id", deleteCharacter);
+
+export default router;

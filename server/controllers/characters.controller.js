@@ -1,6 +1,9 @@
-const fileService = require("../services/fileService");
+import { 
+  readCharactersFile, 
+  writeCharactersFile 
+} from '../services/fileService.js';
 
-const getAllCharacters = async (req, res, next) => {
+export const getAllCharacters = async (req, res, next) => {
   try {
     const data = await fileService.readCharactersFile();
     res.json(data.characters);
@@ -9,7 +12,7 @@ const getAllCharacters = async (req, res, next) => {
   }
 };
 
-const getCharacterById = async (req, res, next) => {
+export const getCharacterById = async (req, res, next) => {
   try {
     const characterId = parseInt(req.params.id);
     const data = await fileService.readCharactersFile();
@@ -25,7 +28,7 @@ const getCharacterById = async (req, res, next) => {
   }
 };
 
-const createCharacter = async (req, res, next) => {
+export const createCharacter = async (req, res, next) => {
   try {
     const data = await fileService.readCharactersFile();
     const newCharacter = {
@@ -45,7 +48,7 @@ const createCharacter = async (req, res, next) => {
   }
 };
 
-const updateCharacter = async (req, res, next) => {
+export const updateCharacter = async (req, res, next) => {
   try {
     const characterId = parseInt(req.params.id);
     const data = await fileService.readCharactersFile();
@@ -72,7 +75,7 @@ const updateCharacter = async (req, res, next) => {
   }
 };
 
-const deleteCharacter = async (req, res, next) => {
+export const deleteCharacter = async (req, res, next) => {
   try {
     const characterId = parseInt(req.params.id);
     const data = await fileService.readCharactersFile();
@@ -89,12 +92,4 @@ const deleteCharacter = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-module.exports = {
-  getAllCharacters,
-  getCharacterById,
-  createCharacter,
-  updateCharacter,
-  deleteCharacter,
 };

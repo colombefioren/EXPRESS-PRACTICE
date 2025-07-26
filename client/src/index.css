@@ -1,1 +1,28 @@
 @import "tailwindcss";
+@layer utilities {
+  .tilt-element {
+    transform-style: preserve-3d;
+  }
+
+  .tilt-element .tilt-inner {
+    transform: translateZ(20px);
+  }
+
+  .comic-red {
+    color: #ed1d24;
+  }
+
+  .universe-616 {
+    background-color: #8b5cf6;
+  }
+
+  .bp-world {
+    background-color: #ec4899;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-gray-900 text-white;
+  }
+}

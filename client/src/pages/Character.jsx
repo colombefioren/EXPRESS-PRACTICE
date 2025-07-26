@@ -6,7 +6,7 @@ const Character = () => {
   const [hero, setHero] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:4000/characters/${id}`)
+    fetch(`https://express-practice-nqjt.onrender.com/characters/${id}`)
       .then((res) => res.json())
       .then((data) => setHero(data));
   }, [id]);

@@ -5,10 +5,10 @@ const useHeroes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:4000/characters")
+    fetch("https://express-practice-nqjt.onrender.com/characters")
       .then((res) => res.json())
       .then((data) => {
-        setHeroes(data.characters);
+        setHeroes(data);
         setLoading(false);
       });
   }, []);

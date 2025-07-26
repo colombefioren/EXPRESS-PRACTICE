@@ -1,5 +1,3 @@
-// DELETE /characters/:id ==> Delete a character by ID
-
 const express = require("express");
 const app = express();
 const fs = require("fs");
@@ -42,7 +40,7 @@ app.post("/characters", async (req, res) => {
       characterData.characters.push(newCharacter);
       fs.writeFile(
         "user.json",
-        JSON.stringify(characterData, null,2),
+        JSON.stringify(characterData, null, 2),
         "utf-8",
         (err) => {
           if (err) {
@@ -94,7 +92,7 @@ app.put("/characters/:id", async (req, res) => {
       return;
     } else {
       try {
-        const characterData = JSON.parse(data);
+        let characterData = JSON.parse(data);
         const updatedCharacter = {
           id: +req.params.id,
           ...req.body,
@@ -109,7 +107,7 @@ app.put("/characters/:id", async (req, res) => {
         if (found) {
           fs.writeFile(
             "user.json",
-            JSON.stringify(characterData, null,2),
+            JSON.stringify(characterData, null, 2),
             (err) => {
               if (err) {
                 res.status(500).json({ message: "Error writing file !" });
@@ -123,7 +121,7 @@ app.put("/characters/:id", async (req, res) => {
           characterData.characters.push(updatedCharacter);
           fs.writeFile(
             "user.json",
-            JSON.stringify(characterData, null,2),
+            JSON.stringify(characterData, null, 2),
             "utf-8",
             (err) => {
               if (err) {
@@ -137,6 +135,41 @@ app.put("/characters/:id", async (req, res) => {
       } catch (ParsingError) {
         console.error(ParsingError);
         res.status(500).json({ message: "Failed to parse data !" });
+      }
+    }
+  });
+});
+
+// DELETE /characters/:id ==> Delete a character by ID
+
+app.delete("/characters/:id", async (req, res) => {
+  fs.readFile("user.json", "utf-8", (err, data) => {
+    if (err) {
+      res.status(500).json({ message: "Failed to read file !" });
+      return;
+    } else {
+      try {
+        let characterData = JSON.parse(data);
+        characterData.characters = characterData.characters.filter(
+          (chara) => chara.id != +req.params.id
+        );
+        fs.writeFile(
+          "user.json",
+          JSON.stringify(characterData, null, 2),
+          "utf-8",
+          (err) => {
+            if (err) {
+              res.status(500).json({ message: "Error writing file!" });
+            } else {
+              res
+                .status(200)
+                .json({ message: "Character deleted successfully!" });
+            }
+          }
+        );
+      } catch (ParsingError) {
+        console.error(ParsingError);
+        res.status(500).json({ message: "Failed to parse file !" });
       }
     }
   });

@@ -49,16 +49,40 @@
       "universe": "Earth-616"
     },
     {
+      "id": 9,
+      "name": "Ruby Jane",
+      "realName": "Jennie",
+      "universe": "Blackpink world"
+    },
+    {
       "id": 10,
       "name": "Coco Chanelle",
       "realName": "Colombe",
       "universe": "Earth-normal"
     },
     {
-      "id": 9,
+      "id": 11,
       "name": "Coco Chanelle",
       "realName": "Colombe",
       "universe": "Earth-normal"
+    },
+    {
+      "id": 12,
+      "name": "Sasha",
+      "realName": "Sarah",
+      "universe": "Earth-normal"
+    },
+    {
+      "id": 13,
+      "name": "Coco Chanelle",
+      "realName": "Colombe",
+      "universe": "Earth-normal"
+    },
+    {
+      "id": 14,
+      "name": "Chicka",
+      "realName": "Lisa Manobal",
+      "universe": "Blackpink world"
     }
   ]
 }

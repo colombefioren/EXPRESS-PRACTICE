@@ -1,11 +1,11 @@
-import { 
-  readCharactersFile, 
-  writeCharactersFile 
-} from '../services/fileService.js';
+import {
+  readCharactersFile,
+  writeCharactersFile,
+} from "../services/fileService.js";
 
 export const getAllCharacters = async (req, res, next) => {
   try {
-    const data = await fileService.readCharactersFile();
+    const data = await readCharactersFile();
     res.json(data.characters);
   } catch (error) {
     next(error);
@@ -15,7 +15,7 @@ export const getAllCharacters = async (req, res, next) => {
 export const getCharacterById = async (req, res, next) => {
   try {
     const characterId = parseInt(req.params.id);
-    const data = await fileService.readCharactersFile();
+    const data = await readCharactersFile();
     const character = data.characters.find((c) => c.id === characterId);
 
     if (!character) {
@@ -30,7 +30,7 @@ export const getCharacterById = async (req, res, next) => {
 
 export const createCharacter = async (req, res, next) => {
   try {
-    const data = await fileService.readCharactersFile();
+    const data = await readCharactersFile();
     const newCharacter = {
       id:
         data.characters.length > 0
@@ -40,7 +40,7 @@ export const createCharacter = async (req, res, next) => {
     };
 
     data.characters.push(newCharacter);
-    await fileService.writeCharactersFile(data);
+    await writeCharactersFile(data);
 
     res.status(201).json(newCharacter);
   } catch (error) {
@@ -51,7 +51,7 @@ export const createCharacter = async (req, res, next) => {
 export const updateCharacter = async (req, res, next) => {
   try {
     const characterId = parseInt(req.params.id);
-    const data = await fileService.readCharactersFile();
+    const data = await readCharactersFile();
     const characterIndex = data.characters.findIndex(
       (c) => c.id === characterId
     );
@@ -63,11 +63,11 @@ export const updateCharacter = async (req, res, next) => {
 
     if (characterIndex === -1) {
       data.characters.push(updatedCharacter);
-      await fileService.writeCharactersFile(data);
+      await writeCharactersFile(data);
       return res.status(201).json(updatedCharacter);
     } else {
       data.characters[characterIndex] = updatedCharacter;
-      await fileService.writeCharactersFile(data);
+      await writeCharactersFile(data);
       return res.json(updatedCharacter);
     }
   } catch (error) {
@@ -78,7 +78,7 @@ export const updateCharacter = async (req, res, next) => {
 export const deleteCharacter = async (req, res, next) => {
   try {
     const characterId = parseInt(req.params.id);
-    const data = await fileService.readCharactersFile();
+    const data = await readCharactersFile();
     const initialLength = data.characters.length;
 
     data.characters = data.characters.filter((c) => c.id !== characterId);
@@ -87,7 +87,7 @@ export const deleteCharacter = async (req, res, next) => {
       return res.status(404).json({ message: "Character not found" });
     }
 
-    await fileService.writeCharactersFile(data);
+    await writeCharactersFile(data);
     res.json({ message: "Character deleted successfully" });
   } catch (error) {
     next(error);

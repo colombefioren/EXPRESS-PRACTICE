@@ -50,6 +50,7 @@ npm install
 npm run dev
 # Frontend should normally run on http://localhost:5173
 ```
+⚠️ Keep in mind that the frontend uses the deployed API on Render not the local one!
 
 ---
 

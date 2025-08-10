@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { BACKEND_URL } from "../config";
 
 const Character = () => {
   const { id } = useParams();
   const [hero, setHero] = useState(null);
 
   useEffect(() => {
-    fetch(`https://express-practice-nqjt.onrender.com/characters/${id}`)
+    fetch(`${BACKEND_URL}/${id}`)
       .then((res) => res.json())
       .then((data) => setHero(data));
   }, [id]);

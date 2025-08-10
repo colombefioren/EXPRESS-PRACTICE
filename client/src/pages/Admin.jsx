@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useHeroes from "../hooks/useHeroes";
+import { BACKEND_URL } from "../config";
 
 const Admin = () => {
   const { heroes: allHeroes, loading } = useHeroes();
@@ -34,7 +35,7 @@ const Admin = () => {
 
   const confirmDelete = () => {
     fetch(
-      `https://express-practice-nqjt.onrender.com/characters/${heroToDelete}`,
+      `${BACKEND_URL}/${heroToDelete}`,
       {
         method: "DELETE",
       }
@@ -47,8 +48,8 @@ const Admin = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const url = editingId
-      ? `https://express-practice-nqjt.onrender.com/characters/${editingId}`
-      : "https://express-practice-nqjt.onrender.com/characters";
+      ? `${BACKEND_URL}/${editingId}`
+      : `${BACKEND_URL}`;
 
     fetch(url, {
       method: editingId ? "PUT" : "POST",
